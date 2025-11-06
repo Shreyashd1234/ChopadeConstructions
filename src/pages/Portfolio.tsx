@@ -1,20 +1,63 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import * as Dialog from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
 
-const commercialProjects = Array.from({ length: 15 }, (_, i) => ({
-  title: `Commercial Project ${i + 1}`,
-  type: 'Commercial',
-  image: '/assets/Architectural Design.jpg',
-  description: 'A showcase of our commercial expertise.'
-}));
+// Import all images (fixed relative paths)
+import samruddhi from '../assets/Portfolio/16 samruddhi colony ganeshpur.jpg';
+import laxmiNagar21 from '../assets/Portfolio/21 Laxmi nagar, hindalga, belgaum.jpg';
+import saraswatiNagar from '../assets/Portfolio/23 Saraswati Nagar, belgaum.jpg';
+import laxmiNagar29 from '../assets/Portfolio/29 laxmi nagar, hindalga, belgaum.jpg';
+import laxmiNagar32 from '../assets/Portfolio/32 laxmi nagar, hindalga belgaum.jpg';
+import mahalaxmiNagar from '../assets/Portfolio/46 mahalaxmi nagar 5th cross.jpg';
+import laxmiNagar48 from '../assets/Portfolio/48 laxmi nagar hindalga belgaum.jpg';
 
-const residentialProjects = Array.from({ length: 15 }, (_, i) => ({
-  title: `Residential Project ${i + 1}`,
-  type: 'Residential',
-  image: '/assets/Interior Designing.jpg',
-  description: 'A showcase of our residential excellence.'
-}));
+const residentialProjects = [
+  {
+    title: 'Samruddhi Colony Ganeshpur',
+    type: 'Residential',
+    image: samruddhi
+  },
+  {
+    title: 'Laxmi Nagar, Hindalga, Belgaum',
+    type: 'Residential',
+    image: laxmiNagar21
+  },
+  {
+    title: 'Saraswati Nagar, Belgaum',
+    type: 'Residential',
+    image: saraswatiNagar
+  },
+  {
+    title: 'Laxmi Nagar, Hindalga, Belgaum',
+    type: 'Commercial & Residential',
+    image: laxmiNagar29
+  },
+  {
+    title: 'Laxmi Nagar, Hindalga, Belgaum',
+    type: 'Residential',
+    image: laxmiNagar32
+  },
+  {
+    title: 'Mahalaxmi Nagar 5th Cross',
+    type: 'Residential',
+    image: mahalaxmiNagar
+  },
+  {
+    title: 'Laxmi Nagar, Hindalga, Belgaum',
+    type: 'Residential',
+    image: laxmiNagar48
+  }
+];
+
+const commercialProjects = [
+  {
+    title: 'Laxmi Nagar, Hindalga, Belgaum',
+    type: 'Commercial & Residential',
+    image: laxmiNagar29
+  }
+];
 
 // Alternate commercial and residential for All section
 const getAlternatingProjects = () => {
@@ -28,6 +71,7 @@ const getAlternatingProjects = () => {
 
 const Portfolio = () => {
   const [selectedSection, setSelectedSection] = useState('All');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   let projectsToShow = [];
   let sectionTitle = '';
@@ -93,7 +137,10 @@ const Portfolio = () => {
                   {/* Card background glow */}
                   <div className="absolute -inset-1 bg-gradient-to-br from-gold/10 to-transparent rounded-3xl blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-500 z-0" />
                   {/* Project Image */}
-                  <div className="relative overflow-hidden h-56 rounded-t-3xl">
+                  <div 
+                    className="relative overflow-hidden h-56 rounded-t-3xl cursor-pointer"
+                    onClick={() => setSelectedImage(project.image)}
+                  >
                     <img
                       src={project.image}
                       alt={project.title}
@@ -105,9 +152,8 @@ const Portfolio = () => {
                     </div>
                   </div>
                   {/* Project Details */}
-                  <div className="relative z-10 p-6 flex flex-col gap-2 bg-black/60 backdrop-blur-md rounded-b-3xl">
-                    <h3 className="text-xl font-bold text-gold mb-1 drop-shadow-sm group-hover:tracking-wider transition-all duration-300">{project.title}</h3>
-                    <p className="text-gray-300 text-sm line-clamp-3 group-hover:text-gold/90 transition-colors duration-300">{project.description}</p>
+                  <div className="relative z-10 p-4 flex flex-col gap-2 bg-black/60 backdrop-blur-md rounded-b-3xl">
+                    <h3 className="text-xl font-bold text-gold text-center drop-shadow-sm group-hover:tracking-wider transition-all duration-300">{project.title}</h3>
                   </div>
                 </div>
               ))}
@@ -116,6 +162,31 @@ const Portfolio = () => {
         </section>
       </main>
       <Footer />
+
+      {/* Image Modal */}
+      <Dialog.Root open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50" />
+          <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+            <div className="relative">
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Project view"
+                  className="max-h-[85vh] max-w-[85vw] object-contain rounded-lg"
+                />
+              )}
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-4 -right-4 bg-gold text-black rounded-full p-2 hover:bg-gold-dark transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
       {/* Floating Call Button */}
       <a
         href="tel:9972255837"
