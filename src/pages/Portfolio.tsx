@@ -98,24 +98,25 @@ const Portfolio = () => {
         <section className="py-16 px-4">
           <h1 className="text-4xl font-bold text-center mb-24 text-gold drop-shadow-lg mt-40">Our Portfolio</h1>
           {/* Navigation Buttons */}
-          <div className="flex justify-center gap-6 mb-16">
+          {/* Responsive filter buttons: smaller padding on mobile, allow wrap and horizontal scroll as fallback */}
+          <div className="flex justify-center gap-4 mb-16 px-4 sm:px-0 flex-wrap sm:flex-nowrap overflow-x-auto">
             <button
               onClick={() => setSelectedSection('All')}
-              className={`px-8 py-3 rounded-full font-bold border-2 border-gold shadow-lg text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
+              className={`min-w-[72px] whitespace-nowrap px-4 sm:px-8 py-2 sm:py-3 rounded-full font-bold border-2 border-gold shadow-lg text-sm sm:text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
                 ${selectedSection === 'All' ? 'bg-gradient-to-r from-gold to-gold-dark text-black' : 'bg-black/60 text-gold hover:bg-gold hover:text-black'}`}
             >
               All
             </button>
             <button
               onClick={() => setSelectedSection('Commercial')}
-              className={`px-8 py-3 rounded-full font-bold border-2 border-gold shadow-lg text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
+              className={`min-w-[72px] whitespace-nowrap px-4 sm:px-8 py-2 sm:py-3 rounded-full font-bold border-2 border-gold shadow-lg text-sm sm:text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
                 ${selectedSection === 'Commercial' ? 'bg-gradient-to-r from-gold to-gold-dark text-black' : 'bg-black/60 text-gold hover:bg-gold hover:text-black'}`}
             >
               Commercial
             </button>
             <button
               onClick={() => setSelectedSection('Residential')}
-              className={`px-8 py-3 rounded-full font-bold border-2 border-gold shadow-lg text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
+              className={`min-w-[72px] whitespace-nowrap px-4 sm:px-8 py-2 sm:py-3 rounded-full font-bold border-2 border-gold shadow-lg text-sm sm:text-lg focus:outline-none transition-all duration-200 backdrop-blur-md
                 ${selectedSection === 'Residential' ? 'bg-gradient-to-r from-gold to-gold-dark text-black' : 'bg-black/60 text-gold hover:bg-gold hover:text-black'}`}
             >
               Residential
