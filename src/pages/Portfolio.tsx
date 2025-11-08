@@ -144,18 +144,25 @@ const Portfolio = () => {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${idx === 1 ? 'object-top' : 'object-center'}`}
                     />
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4 flex gap-2">
                       {Array.isArray(project.type) ? (
                         project.type.map((t) => (
-                          <span key={t} className="bg-gold/30 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/40">
+                          <span
+                            key={t}
+                            className="bg-white/90 text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/30"
+                            style={{ backdropFilter: 'blur(6px)' }}
+                          >
                             {t}
                           </span>
                         ))
                       ) : (
-                        <span className="bg-gold/30 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/40">
+                        <span
+                          className="bg-white/90 text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/30"
+                          style={{ backdropFilter: 'blur(6px)' }}
+                        >
                           {project.type}
                         </span>
                       )}
