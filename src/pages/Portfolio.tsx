@@ -30,8 +30,8 @@ const residentialProjects = [
     image: saraswatiNagar
   },
   {
-    title: 'Laxmi Nagar, Hindalga, Belgaum',
-    type: 'Commercial & Residential',
+    title: 'Laxmi Nagar Mixed-Use Complex',
+    type: ['Commercial', 'Residential'],
     image: laxmiNagar29
   },
   {
@@ -53,8 +53,8 @@ const residentialProjects = [
 
 const commercialProjects = [
   {
-    title: 'Laxmi Nagar, Hindalga, Belgaum',
-    type: 'Commercial & Residential',
+    title: 'Laxmi Nagar Mixed-Use Complex',
+    type: ['Commercial', 'Residential'],
     image: laxmiNagar29
   }
 ];
@@ -147,8 +147,18 @@ const Portfolio = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     {/* Category Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className={`bg-gold/30 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/40`}>{project.type}</span>
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      {Array.isArray(project.type) ? (
+                        project.type.map((t) => (
+                          <span key={t} className="bg-gold/30 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/40">
+                            {t}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="bg-gold/30 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full font-semibold shadow-md border border-gold/40">
+                          {project.type}
+                        </span>
+                      )}
                     </div>
                   </div>
                   {/* Project Details */}

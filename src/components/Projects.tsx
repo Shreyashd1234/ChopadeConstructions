@@ -1,65 +1,71 @@
 import { useState } from 'react';
-import { ExternalLink, MapPin, Calendar } from 'lucide-react';
+import { ExternalLink, MapPin, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import * as Dialog from '@radix-ui/react-dialog';
+
+// Import portfolio images
+import samruddhi from '../assets/Portfolio/16 samruddhi colony ganeshpur.jpg';
+import laxmiNagar21 from '../assets/Portfolio/21 Laxmi nagar, hindalga, belgaum.jpg';
+import saraswatiNagar from '../assets/Portfolio/23 Saraswati Nagar, belgaum.jpg';
+import laxmiNagar29 from '../assets/Portfolio/29 laxmi nagar, hindalga, belgaum.jpg';
+import laxmiNagar32 from '../assets/Portfolio/32 laxmi nagar, hindalga belgaum.jpg';
+import mahalaxmiNagar from '../assets/Portfolio/46 mahalaxmi nagar 5th cross.jpg';
+import laxmiNagar48 from '../assets/Portfolio/48 laxmi nagar hindalga belgaum.jpg';
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const projects = [
     {
       id: 1,
-      title: "Luxury Villa Complex",
-      location: "Pune, Maharashtra",
-      year: "2024",
+      title: "Samruddhi Colony Ganeshpur",
+      location: "Ganeshpur",
       category: "Residential",
-      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Premium residential complex with modern amenities"
+      image: samruddhi
     },
     {
       id: 2,
-      title: "Commercial Tower",
-      location: "Mumbai, Maharashtra",
-      year: "2023",
-      category: "Commercial",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "25-story commercial building with premium offices"
+      title: "Laxmi Nagar Property",
+      location: "Hindalga, Belgaum",
+      category: "Residential",
+      image: laxmiNagar21
     },
     {
       id: 3,
-      title: "Residential Apartments",
-      location: "Nashik, Maharashtra",
-      year: "2024",
+      title: "Saraswati Nagar Development",
+      location: "Belgaum",
       category: "Residential",
-      image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Modern apartment complex with garden spaces"
+      image: saraswatiNagar
     },
     {
       id: 4,
-      title: "Shopping Complex",
-      location: "Aurangabad, Maharashtra",
-      year: "2023",
-      category: "Commercial",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Multi-level retail and entertainment complex"
+      title: "Laxmi Nagar Mixed-Use Complex",
+      location: "Hindalga, Belgaum",
+      category: ["Commercial", "Residential"],
+      image: laxmiNagar29
     },
     {
       id: 5,
-      title: "Luxury Bungalow",
-      location: "Lonavala, Maharashtra",
-      year: "2024",
+      title: "Modern Residential Complex",
+      location: "Laxmi Nagar, Belgaum",
       category: "Residential",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Premium bungalow with panoramic views"
+      image: laxmiNagar32
     },
     {
       id: 6,
-      title: "Office Complex",
-      location: "Satara, Maharashtra",
-      year: "2023",
-      category: "Commercial",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      description: "Modern office spaces with co-working areas"
+      title: "Mahalaxmi Nagar Project",
+      location: "5th Cross",
+      category: "Residential",
+      image: mahalaxmiNagar
+    },
+    {
+      id: 7,
+      title: "Multi-Family Residence",
+      location: "Laxmi Nagar, Belgaum",
+      category: "Residential",
+      image: laxmiNagar48
     }
   ];
 
@@ -67,7 +73,11 @@ const Projects = () => {
 
   const filteredProjects = activeFilter === 'All' 
     ? projects 
-    : projects.filter(project => project.category === activeFilter);
+    : projects.filter(project => 
+        Array.isArray(project.category) 
+          ? project.category.includes(activeFilter)
+          : project.category === activeFilter
+      );
 
   return (
     <section id="projects" className="py-20 lg:py-32 relative">
@@ -118,7 +128,10 @@ const Projects = () => {
               style={{animationDelay: `${index * 0.1}s`}}
             >
               {/* Project Image */}
-              <div className="relative overflow-hidden h-64">
+              <div 
+                className="relative overflow-hidden h-64" 
+                onClick={() => setSelectedImage(project.image)}
+              >
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -132,23 +145,26 @@ const Projects = () => {
                 </div>
                 
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gold/20 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full">
-                    {project.category}
-                  </span>
+                <div className="absolute top-4 left-4 flex gap-2">
+                  {Array.isArray(project.category) ? (
+                    project.category.map((cat) => (
+                      <span key={cat} className="bg-gold/20 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full">
+                        {cat}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="bg-gold/20 backdrop-blur-sm text-gold text-xs px-3 py-1 rounded-full">
+                      {project.category}
+                    </span>
+                  )}
                 </div>
               </div>
 
               {/* Project Details */}
               <div className="p-6 space-y-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
+                <h3 className="text-xl font-semibold text-foreground">
+                  {project.title}
+                </h3>
 
                 {/* Project Meta */}
                 <div className="space-y-2 pt-2 border-t border-gold/20">
@@ -156,10 +172,7 @@ const Projects = () => {
                     <MapPin className="w-4 h-4 text-gold" />
                     {project.location}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4 text-gold" />
-                    Completed in {project.year}
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -176,6 +189,30 @@ const Projects = () => {
           </button>
         </div>
       </div>
+
+      {/* Image Modal */}
+      <Dialog.Root open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50" />
+          <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-50">
+            <div className="relative">
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Project view"
+                  className="max-h-[85vh] max-w-[85vw] object-contain rounded-lg"
+                />
+              )}
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-4 -right-4 bg-gold text-black rounded-full p-2 hover:bg-gold-dark transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </section>
   );
 };
