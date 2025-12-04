@@ -56,14 +56,15 @@ const Contact = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Form */}
-          <div className="glass-card rounded-3xl p-8 slide-up">
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-2">Send us a Message</h3>
-              <p className="text-muted-foreground">Fill out the form below and we'll get back to you soon.</p>
-            </div>
+          {/* Left Column - Contact Form & Map */}
+          <div className="space-y-8">
+            <div className="glass-card rounded-3xl p-8 slide-up">
+              <div className="mb-8">
+                <h3 className="text-2xl font-semibold text-foreground mb-2">Send us a Message</h3>
+                <p className="text-muted-foreground">Fill out the form below and we'll get back to you soon.</p>
+              </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
@@ -128,9 +129,28 @@ const Contact = () => {
                 )}
               </Button>
             </form>
+            </div>
+
+            {/* Google Maps - Below Form */}
+            <div className="glass-card rounded-3xl p-6 slide-up">
+              <h3 className="text-lg font-semibold text-foreground mb-3">Find Us on Map</h3>
+              <div className="relative w-full h-64 rounded-xl overflow-hidden">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3837.8476575965033!2d74.4775645!3d15.864602199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbf657f5774630d%3A0x7c2f7141d7708d4!2sChopade%20Constructions!5e0!3m2!1sen!2sin!4v1764872171107!5m2!1sen!2sin"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Chopade Constructions Location"
+                  className="rounded-xl"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Contact Information */}
+          {/* Right Column - Contact Information */}
           <div className="space-y-8 slide-up">
             <div className="glass-card rounded-3xl p-8">
               <h3 className="text-2xl font-semibold text-foreground mb-6">Get in Touch</h3>
@@ -144,9 +164,11 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium text-foreground mb-1">Office Address</h4>
                     <p className="text-muted-foreground">
-                      CHOPADE CONSTRUCTIONS<br />
-                      Ayodhya nagar Ganeshapur<br />
-                      Belgaum Karnataka 591108
+                      H No 322, Ramghat Road<br />
+                      Near Ganesh Temple<br />
+                      Saraswati Nagar, Ganeshpur<br />
+                      Belagavi, Hindalga<br />
+                      Karnataka 591108
                     </p>
                   </div>
                 </div>
@@ -170,8 +192,9 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-foreground mb-1">Email Address</h4>
-                    <p className="text-muted-foreground">info@chopade-constructions.com</p>
-                    <p className="text-muted-foreground">projects@chopade-constructions.com</p>
+                    <a href="mailto:chopadeconstructions@gmail.com" className="text-muted-foreground hover:text-gold transition-colors block">
+                      chopadeconstructions@gmail.com
+                    </a>
                   </div>
                 </div>
 

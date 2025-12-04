@@ -120,12 +120,16 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-foreground">Contact Info</h3>
             <div className="text-muted-foreground text-sm leading-relaxed">
               <span className="font-semibold text-white">Address</span><br />
-              CHOPADE CONSTRUCTIONS<br />
-              Ayodhya nagar Ganeshapur<br />
-              Belgaum Karnataka 591108<br />
+              H No 322, Ramghat Road<br />
+              Near Ganesh Temple<br />
+              Saraswati Nagar, Ganeshpur<br />
+              Belagavi, Hindalga<br />
+              Karnataka 591108<br /><br />
               <span className="font-semibold text-white">Phone Number</span><br />
               9972255837<br />
-              9972944524
+              9972944524<br /><br />
+              <span className="font-semibold text-white">Email</span><br />
+              <a href="mailto:chopadeconstructions@gmail.com" className="hover:text-gold transition-colors">chopadeconstructions@gmail.com</a>
             </div>
           </div>
         </div>
